@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.example.mvvmnews"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "API_URL", BaseUrl
+            buildConfigField "String", "API_KEY", ApiKey
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "API_URL", BaseUrl
+            buildConfigField "String", "API_KEY", ApiKey
+        }
+    }
+}
+
+ext {
+    archLifecycleVersion = '1.1.1'
+    constraintLayoutVersion = '1.1.3'
+    retrofitVersion = '2.6.0'
+    okHttpVersion = '3.10.0'
+    koinVersion = '2.0.1'
+    roomVersion = "2.1.0"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'androidx.core:core-ktx:1.0.2'
+
+    api 'androidx.appcompat:appcompat:1.0.2'
+    api 'com.google.android.material:material:1.0.0'
+    api 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    // picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    // anko
+    api "org.jetbrains.anko:anko:0.10.8"
+
+    // arch component
+    api 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha02'
+    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02'
+    api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-alpha02"
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.2.0-alpha02'
+
+    api "androidx.room:room-runtime:$roomVersion"
+    api "androidx.room:room-ktx:$roomVersion"
+
+    // retrofit
+    api "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    api "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    api "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+
+    // koin
+    api "org.koin:koin-android:$koinVersion"
+    api "org.koin:koin-androidx-viewmodel:$koinVersion"
+
+    // coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
+
+    // crashlytics
+    api('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
+        transitive = true
+    }
+
+    api "androidx.exifinterface:exifinterface:1.0.0"
+
+    // custom view lib
+    api 'com.romandanylyk:pageindicatorview:1.0.3@aar'
+
+    // stetho
+    api 'com.facebook.stetho:stetho:1.5.0'
+
+    // easy permission
+    api "pub.devrel:easypermissions:3.0.0"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+}
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
+}
